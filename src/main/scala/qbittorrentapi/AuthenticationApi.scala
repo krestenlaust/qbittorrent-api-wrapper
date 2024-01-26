@@ -11,17 +11,15 @@ import scala.concurrent.Future
 // https://doc.akka.io/docs/akka-http/current/client-side/request-and-response.html#creating-requests
 // https://doc.akka.io/docs/akka-http/current/index.html
 
-case class LoginParameters(username: String, password: String)
-
 case class LoginResult(statusCode: Int, sidCookie: Option[HttpCookie])
 
-class AuthenticationApi(baseUrl: Uri, sidCookie: Option[HttpCookie]):
-  def login(loginParameters: LoginParameters): Future[LoginResult] =
+class AuthenticationApi(baseUrl: Uri, var sidCookie: Option[HttpCookie]):
+  def login(username: String, password: String): Future[LoginResult] =
     val req = HttpRequest(
       uri = baseUrl
         .withPath(Path("/api/v2/auth/login"))
         .withQuery(Query(Map(
-          "username" -> loginParameters.username, "password" -> loginParameters.password
+          "username" -> username, "password" -> password
         ))),
     )
 
@@ -29,7 +27,7 @@ class AuthenticationApi(baseUrl: Uri, sidCookie: Option[HttpCookie]):
       .singleRequest(req)
       .flatMap { res =>
         Future.successful {
-          val sidCookie = response.headers.collect {
+          sidCookie = response.headers.collect {
             case c: `Set-Cookie` if c.cookie.name == "SID" => c.cookie
           }.headOption
 
