@@ -11,9 +11,9 @@ import scala.concurrent.Future
 // https://doc.akka.io/docs/akka-http/current/client-side/request-and-response.html#creating-requests
 // https://doc.akka.io/docs/akka-http/current/index.html
 
-case class LoginResult(statusCode: Int, sidCookie: Option[HttpCookie])
-
 class AuthenticationApi(baseUrl: Uri, var sidCookie: Option[HttpCookie]):
+  case class LoginResult(statusCode: Int, sidCookie: Option[HttpCookie])
+
   def login(username: String, password: String): Future[LoginResult] =
     val req = HttpRequest(
       uri = baseUrl
