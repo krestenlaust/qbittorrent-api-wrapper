@@ -1,9 +1,7 @@
 package qbittorrentapi
 
-import akka.http.scaladsl.model.Uri
-import akka.http.scaladsl.model.Uri.Query
-import akka.http.scaladsl.client.RequestBuilding.Get
 import akka.http.scaladsl.Http
+import akka.http.scaladsl.client.RequestBuilding.Get
 import akka.http.scaladsl.model.Uri.{Path, Query}
 import akka.http.scaladsl.model.headers.HttpCookie
 import akka.http.scaladsl.model.{HttpEntity, HttpRequest, Uri}
@@ -11,15 +9,15 @@ import akka.http.scaladsl.model.{HttpEntity, HttpRequest, Uri}
 class TorrentsApi(baseUrl: Uri, sidCookie: Option[HttpCookie]):
   private val apiUrl = s"$baseUrl/api/v2/torrents/"
 
+  def info(tag: Option[String] = None) =
+    shortRequest("info", Map(
+      "tag" -> tag.getOrElse("")
+    ))
+
   private def shortRequest(methodName: String, requestFields: Map[String, String]) =
     Http().singleRequest(Get(baseUrl
       .withPath(apiUrl + methodName)
       .withQuery(Query(requestFields))
-    ))
-
-  def info(tag: Option[String] = None) =
-    shortRequest("info", Map(
-      "tag" -> tag.getOrElse("")
     ))
 
   def files(hash: String) =
@@ -34,8 +32,9 @@ class TorrentsApi(baseUrl: Uri, sidCookie: Option[HttpCookie]):
 
   /**
    * Sets file priority
+   *
    * @param hash Torrent hash
-   * @param id File ids, separated by '|'
+   * @param id   File ids, separated by '|'
    * @param priority
    */
   def filePrio(hash: String, id: String, priority: Int) =

@@ -12,8 +12,6 @@ import scala.concurrent.Future
 // https://doc.akka.io/docs/akka-http/current/index.html
 
 class AuthenticationApi(baseUrl: Uri, var sidCookie: Option[HttpCookie]):
-  case class LoginResult(statusCode: Int, sidCookie: Option[HttpCookie])
-
   def login(username: String, password: String): Future[LoginResult] =
     val req = HttpRequest(
       uri = baseUrl
@@ -46,3 +44,5 @@ class AuthenticationApi(baseUrl: Uri, var sidCookie: Option[HttpCookie]):
     Http()
       .singleRequest(req)
       .flatMap(_ => Future.successful)
+
+  case class LoginResult(statusCode: Int, sidCookie: Option[HttpCookie])

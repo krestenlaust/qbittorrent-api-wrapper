@@ -1,6 +1,7 @@
 package qbittorrentapi
 
 import akka.http.scaladsl.model.headers.HttpCookie
+
 import scala.util.Try
 
 class qBitTorrentApi(baseUrl: String):
@@ -9,8 +10,8 @@ class qBitTorrentApi(baseUrl: String):
   def connect(username: String, password: String): Try[Unit] =
     Try(sidCookie =
       AuthenticationApi(baseUrl, None)
-      .login(LoginParameters(username, password))
-      .get)
+        .login(LoginParameters(username, password))
+        .get)
 
   def authentication =
     AuthenticationApi(baseUrl, None)
