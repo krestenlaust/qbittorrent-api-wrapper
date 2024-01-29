@@ -13,8 +13,8 @@ class qBitTorrentApi(baseUrl: String):
         .login(LoginParameters(username, password))
         .get)
 
-  def authentication =
+  def authentication: AuthenticationApi =
     AuthenticationApi(baseUrl, None)
 
-  def torrents =
+  def torrents: TorrentsApi =
     TorrentsApi(baseUrl, None)
