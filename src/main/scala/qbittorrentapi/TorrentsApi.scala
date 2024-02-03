@@ -2,10 +2,9 @@ package qbittorrentapi
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.client.RequestBuilding.Get
-import akka.http.scaladsl.model.Uri.{Path, Query}
-import akka.http.scaladsl.model.headers.{Cookie, HttpCookie}
-import akka.http.scaladsl.model.{HttpEntity, HttpRequest, HttpResponse, Uri}
+import akka.http.scaladsl.model.Uri.Query
+import akka.http.scaladsl.model.headers.HttpCookie
+import akka.http.scaladsl.model.{HttpRequest, HttpResponse, Uri}
 
 import scala.concurrent.{ExecutionContext, Future}
 

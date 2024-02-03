@@ -2,11 +2,8 @@ package qbittorrentapi
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.model.headers.HttpCookie
-import qbittorrentapi.AuthenticationApi
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
-import scala.util.Try
 
 object qBitTorrentApi:
   def connect(baseUrl: String, username: String, password: String)(implicit system: ActorSystem, ec: ExecutionContext): Future[Option[HttpCookie]] =
