@@ -2,7 +2,7 @@ import sbt.Keys.resolvers
 
 ThisBuild / version := "0.1.0-SNAPSHOT"
 
-ThisBuild / scalaVersion := "3.3.1"
+ThisBuild / scalaVersion := "3.3.4"
 
 resolvers += "Akka library repository" at "https://repo.akka.io/maven"
 lazy val akkaHttpVersion = "10.6.0"
