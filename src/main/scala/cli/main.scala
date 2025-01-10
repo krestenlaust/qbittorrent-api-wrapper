@@ -9,10 +9,10 @@ import akka.http.scaladsl.unmarshalling.Unmarshal
 import qbittorrentapi.qBitTorrentApi
 
 import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, ExecutionContext}
+import scala.concurrent.{ Await, ExecutionContext }
 
 @main def main() =
-  implicit val system = ActorSystem("qbittorrent-api-system")
+  implicit val system                             = ActorSystem("qbittorrent-api-system")
   implicit val executionContext: ExecutionContext = system.dispatcher
 
   val torrentApi = qBitTorrentApi("http://127.0.0.1:8080", None)(system, executionContext)
