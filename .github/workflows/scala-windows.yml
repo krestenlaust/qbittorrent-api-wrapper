@@ -1,0 +1,24 @@
+name: Scala CI (Windows)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Configure git
+        run: "git config --global core.autocrlf false"
+        shell: bash
+      - uses: actions/checkout@v3
+
+      - name: Setup Scala (sbt) (based on Adoptium)
+        uses: olafurpg/setup-scala@v10
+
+      - name: Compile Scala sources
+        shell: bash
+        run: sbt compile
